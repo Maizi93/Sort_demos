@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>堆排序</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			window.onload = function(){
+				// 堆排序函数
+				function heapSort(arr){
+					var len = arr.length;
+					// 由于按层序遍历二叉树得到的序列索引从1开始，所以这里我们手动在数组开头加上一个0元素
+					arr.unshift(0);
+					// 第一步：将无序数列构建成一个大顶堆
+					for(var i = Math.floor(len / 2); i > 0; i --){
+						heapAdjust(arr,i,len);   
+					}
+					// 第二步：将每个最大值的根结点与末尾元素进行交换，并再次调整其成为大顶堆
+					for(var i = len; i > 1; i --){
+						swap(arr,1,i);    // 交换
+						heapAdjust(arr,1,i-1);    // 重新调整
+					}
+
+					// 排好序后，将数组开头的元速度删除
+					arr.shift();
+					return arr;
+				}
+
+				// 堆调整函数：调整arr[s],使arr[s]-arr[m]成为一个大顶堆
+				function heapAdjust(arr,s,m){
+					var tmp = arr[s];   // 备份
+					// 从下到上，从左往右，调整每一个子树
+					for(var j = 2 * s; j <= m; j *= 2){
+						// 先判断该结点的俩孩子，j为值较大的下标
+						if(j < m && arr[j] < arr[j + 1]){
+							++ j;
+						}
+						// 再判断该结点与较大孩子的大小
+						// 若大于等于，则无需交换；若小于，则交换两者的位置
+						if(tmp >= arr[j]){
+							break;
+						}
+						arr[s] = arr[j];
+						s = j;
+					}
+					arr[s] = tmp;
+				}
+
+				function swap(arr,i,j){
+					var tmp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = tmp;
+				}
+
+				var num = [2,12,4,56,11,7,21,9,34,16];
+				console.log(heapSort(num));
+			}
+		</script>
+	</body>
+</html>

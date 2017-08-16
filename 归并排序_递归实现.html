@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>归并排序——递归实现</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			window.onload = function(){
+
+				function mergingSort1(arr){
+					var len = arr.length;
+					var result = mSort(arr,arr,0,len-1);
+					return result;
+				}
+
+				// 先拆分，后合并
+				function mSort(SR,TR1,s,t){
+					// 将SR先进行拆分，然后再合并成有序序列
+					var TR2 = [];
+					if(s == t){
+						TR1[s] = SR[s];
+					}else{
+						var m = Math.floor((s+t)/2);     // 取中间下标
+						// 递归调用
+						mSort(SR,TR2,s,m);    // 对前半段进行操作
+						mSort(SR,TR2,m+1,t);   // 对后半段进行操作
+
+						merge(TR2,TR1,s,m,t);
+					}
+					return TR1;
+				}
+
+				// 合并成有序序列
+				function merge(SR,TR,i,m,n){
+					// j为SR后半段的索引，i为SR前半段的索引，k为TR的索引
+					for(var j = m+1, k = i; i <= m && j <= n; k ++){
+						// 将前半段和后半段一一进行比较，谁小就添加到TR中，同时索引后移，直到其中一段全部被添加到TR中
+						if(SR[i] < SR[j]){
+							TR[k] = SR[i ++];
+						}else{
+							TR[k] = SR[j ++];
+						}
+					}
+
+					// 将另一段剩余部分也添加到TR中
+					if(i <= m){
+						for(var l = 0; l <= m-i; l ++){
+							TR[k + l] = SR[i + l];
+						}
+					}
+					if(j <= n){
+						for(var l = 0; l <= n-j; l ++){
+							TR[k + l] = SR[j + l];
+						}
+					}
+				}
+            
+	            var num = [2,12,4,56,11,7,21,9,34,16];
+	            console.log(mergingSort1(num));
+
+			}
+		</script>
+	</body>
+</html>

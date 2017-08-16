@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>插入排序</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			window.onload = function(){
+				function insertionSort(arr){
+					var len = arr.length;
+					for(var i = 1; i < len; i ++){
+						if(arr[i] < arr[i-1]){
+							var tmp = arr[i];     // 备份
+							// 遍历有序列表，满足条件的记录后移
+							for(var j = i-1; arr[j] > tmp; j --){
+								arr[j+1] = arr[j];
+							}
+							arr[j+1] = tmp;   // 插入到正确的位置
+						}
+					}
+					return arr;
+				}
+
+				var num = [2,12,4,56,11,7,21,9,34,16];
+				console.log(insertionSort(num));
+			}
+		</script>
+	</body>
+</html>

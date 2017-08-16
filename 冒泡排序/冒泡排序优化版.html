@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>冒泡排序优化版</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+		window.onload = function(){
+
+			function bubbleSort2 (arr) {
+				console.time('冒泡排序优化版耗时');
+				var len = arr.length;
+				var flag = true;    // flag用来作为标记
+				for(var i = 0; i < len && flag; i ++){    // 当flag = false时，退出循环
+					flag = false;    // flag初始化为false
+					for(var j = len - 1; j >= i; j --){
+						if(arr[j-1] > arr[j]){
+							swap(arr, j-1, j);
+							flag = true;     // 如果发生数据交换，则flag = true
+						}
+					}
+				}
+				console.timeEnd('冒泡排序优化版耗时');
+				return arr;
+			}
+
+			// 交换元素
+			function swap(arr, i, j){
+				var tmp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = tmp;
+			}
+
+			var num = [2,12,4,56,11,7,21,9,34,16];
+			console.log(bubbleSort2(num));
+		}
+		</script>
+	</body>
+</html>

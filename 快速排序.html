@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>快速排序</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			window.onload = function(){
+				function quickSort(arr){
+					var len = arr.length;
+					var result = qSort(arr,0,len-1);
+					return result;
+				}
+
+				function qSort(arr,low,high){
+					if(low < high){
+						// 将 arr 一分为二
+						var pivot = partition(arr,low,high);    // 计算出枢轴值
+						qSort(arr,low,pivot-1);    // 对pivot左边进行递归排序
+						qSort(arr,pivot+1,high);   // 对pivot右边进行递归排序
+					}
+					return arr;
+				}
+
+				function partition(arr,low,high){
+					var pivotkey = arr[low];   // 用子表的第一个记录做枢轴记录
+					while(low < high){
+						// 元素从后往前与枢轴元素进行比较，大的话索引递减；小的话进行交换
+						while(low < high && arr[high] >= pivotkey){
+							high --;
+						}
+						swap(arr,low,high);    // 将比枢轴小的记录换到低端
+						// 元素从前往后与枢轴元素进行比较，小的话索引递增；大的话进行交换
+						while(low < high && arr[low] <= pivotkey){
+							low ++;
+						}
+						swap(arr,low,high);   // 将比枢轴大的记录换到高端
+					}
+					return low;    // 返回枢轴所在的位置
+				}
+
+				function swap(arr,i,j){
+					var tmp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = tmp;
+				}
+
+				var num = [2,12,4,56,11,7,21,9,34,16];
+				console.log(quickSort(num));
+			}
+		</script>
+	</body>
+</html>
